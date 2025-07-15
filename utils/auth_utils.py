@@ -5,6 +5,15 @@ USER_FILE = "user.json"
 current_user = None
 
 
+def set_current_user(username):
+    global current_user
+    current_user = username
+
+
+def get_current_user():
+    return current_user
+
+
 def init_user_file():
     """Create user.json if it doesn't exist."""
     if not os.path.exists(USER_FILE):

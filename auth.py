@@ -14,7 +14,7 @@ def login():
     for user in data["users"]:
         if user["username"].strip() == username and user["password"] == password:
             print(f"✅ Logged in successfully! Welcome, {username}!")
-            utils.current_user = username
+            set_current_user(username)
             return 1
     print("❌ Incorrect username or password.")
     return 0

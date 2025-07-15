@@ -47,8 +47,16 @@
          "author": null,
          "created_at": "2025-07-15T16:01:04.019502",
          "updated_at": "2025-07-15T16:01:04.019531",
-         "likes": [],
-         "comments": []
+         "likes": [
+            "11"
+         ],
+         "comments": [
+            {
+               "user": "11",
+               "text": "hello world!",
+               "date": "2025-07-15T16:15:45.385845"
+            }
+         ]
       },
       {
          "id": 4,

@@ -6,8 +6,7 @@ from utils.post_utils import (
     generate_post_id,
     get_current_datetime,
 )
-from utils.auth_utils import current_user  # چون از current_user هم استفاده کردی
-
+from utils.auth_utils import *
 
 DATA_FILE = "posts.json"
 
@@ -90,7 +89,7 @@ def search_posts(query):
 def edit_post(post_id, new_title, new_content):
     posts = load()
     for post in posts:
-        if post["id"] == post_id and post["author"] == current_user:
+        if post["id"] == post_id and post["author"] == get_current_user():
             post["title"] = new_title
             post["content"] = new_content
             post["updated_at"] = datetime.now().isoformat()
@@ -103,7 +102,7 @@ def edit_post(post_id, new_title, new_content):
 def delete_post(post_id):
     posts = load()
     for post in posts:
-        if post["id"] == post_id and post["author"] == current_user:
+        if post["id"] == post_id and post["author"] == get_current_user():
             posts.remove(post)
             save_posts(posts)
             print(f"🗑️ Post ID {post_id} deleted successfully.")
@@ -115,8 +114,8 @@ def like_post(post_id):
     posts = load()
     for post in posts:
         if post["id"] == post_id:
-            if current_user not in post["likes"]:
-                post["likes"].append(current_user)
+            if get_current_user() not in post["likes"]:
+                post["likes"].append(get_current_user())
                 save_posts(posts)
                 print(f"👍 Post ID {post_id} liked successfully.")
             else:
@@ -126,11 +125,15 @@ def like_post(post_id):
 
 
 def comment_on_post(post_id, comment_text):
+    if not get_current_user():
+        print("❌ You must be logged in to comment.")
+        return
+
     posts = load()
     for post in posts:
         if post["id"] == post_id:
             comment = {
-                "user": current_user,
+                "user": get_current_user(),
                 "text": comment_text,
                 "date": datetime.now().isoformat(),
             }
@@ -174,7 +177,7 @@ def show_all_posts():
 
 def show_my_posts():
     posts = load()
-    user_posts = [p for p in posts if p["author"] == current_user]
+    user_posts = [p for p in posts if p["author"] == get_current_user()]
     if user_posts:
         show_posts(user_posts)
     else:
