@@ -9,6 +9,11 @@
          "username": "kousha ",
          "password": "Admin123%+*admin",
          "email": "kousha@yahoo.com"
+      },
+      {
+         "username": "11 ",
+         "password": "22",
+         "email": "kousha@yahoo.com"
       }
    ]
 }
